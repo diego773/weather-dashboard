@@ -1,6 +1,7 @@
 var searchButton = document.getElementById("search-button");
 var apiKey = "0e40e7fc7657400e150779275327d76e";
-
+var lat = "data.coord.lat";
+var lon = "data.coord.lon";
 
 
 
@@ -45,7 +46,7 @@ function searchWeather(searchValue) {
         humidityEl.classList.add("card-text");
 
         var windEl = document.createElement("p");
-        windEl.textContent = "Wind; " + data.wind.speed + "mph";
+        windEl.textContent = "Wind: " + data.wind.speed + "mph";
         windEl.classList.add("card-text");
 
         var cardBodyEl = document.createElement("div");
@@ -56,16 +57,21 @@ function searchWeather(searchValue) {
         imageEl.setAttribute("src", " http://openweathermap.org/img/wn/" + data.weather[0].icon + ".png");
 
         // getUvIndex(data.coord.lat, data.coord.lon);
-        var uvIndex = document.createElement("p");
-        uvIndex.textContent = "UV Index: " + ("http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + lon + "appid"); 
+        var uvIndexEl = document.createElement("p")
+        uvIndexEl.textContent = "UV Index : " + searchValue;
+        uvIndexEl.classList.add("card-text");
+        // 
+        fetch("http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + apiKey)
+        .then(function (uviResponse) {
+            return uviResponse.json();
+        })
+        // var latitudeEl = document.createElement("lat");
+        // latitudeEl.textContent = "Latitude" + data.coord.lat + "appid";
+        // latitudeEl.classList.add("card-text");
 
-        var latitudeEl = document.createElement("lat");
-        latitudeEl.textContent = "Latitude" + data.coord.lat + "appid";
-        latitudeEl.classList.add("card-text");
-
-        var logitudeEl = document.createElement("lat");
-        logitudeEl.textContent = "Latitude" + data.coord.lon + "appid";
-        logitudeEl.classList.add("card-text");
+        // var logitudeEl = document.createElement("lat");
+        // logitudeEl.textContent = "Latitude" + data.coord.lon + "appid";
+        // logitudeEl.classList.add("card-text");
         // getForecast(searchValue);
 
 
@@ -85,7 +91,7 @@ function searchWeather(searchValue) {
 
         todayEl.appendChild(cardEl);
         
-        
+        cardBodyEl.appendChild(uvIndexEl);
         // call for forecast use different api
         // call for uv index use different api
 

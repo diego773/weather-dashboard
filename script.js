@@ -44,6 +44,12 @@ function searchWeather(searchValue) {
         var windEl = document.createElement("p");
         windEl.textContent = "Wind: " + data.wind.speed + "mph";
         windEl.classList.add("card-text");
+        
+        var uvIndexEl = document.createElement("p");
+        uvIndexEl.textContent = "UV Index"
+        uvIndexEl.classList.add("card-text");
+        
+        fetch("http://api.openweathermap.org/data/2.5/uvi?" + "lat={lat}&lon={lon}" &appid + apiKey)
 
         var cardBodyEl = document.createElement("div");
         cardBodyEl.classList.add("card-body");
@@ -62,6 +68,7 @@ function searchWeather(searchValue) {
 
         cardBodyEl.appendChild(windEl);
 
+        cardBodyEl.appendChild(uvIndexEl);
         
         cardEl.appendChild(cardBodyEl);
 
@@ -74,7 +81,7 @@ function searchWeather(searchValue) {
         // call for forecast use different api
         // call for uv index use different api
 
-        })
+    }   )
         
 }
 

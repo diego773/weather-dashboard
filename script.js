@@ -1,7 +1,7 @@
 var searchButton = document.getElementById("search-button");
 var apiKey = "0e40e7fc7657400e150779275327d76e";
-var lat = "data.coord.lat";
-var lon = "data.coord.lon";
+var lat = "41.85";
+var lon = "-87.65";
 
 
 
@@ -58,13 +58,22 @@ function searchWeather(searchValue) {
 
         // getUvIndex(data.coord.lat, data.coord.lon);
         var uvIndexEl = document.createElement("p")
-        uvIndexEl.textContent = "UV Index : " + searchValue;
+        uvIndexEl.textContent = "UV Index : " + 
+        uviResponse.value;
         uvIndexEl.classList.add("card-text");
         // 
-        fetch("http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + apiKey)
-        .then(function (uviResponse) {
-            return uviResponse.json();
-        })
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&units=imperial&appid=" + apiKey)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      lat = data.coord.lat;
+      lon = data.coord.lon;        
+
+
+
+  
         // var latitudeEl = document.createElement("lat");
         // latitudeEl.textContent = "Latitude" + data.coord.lat + "appid";
         // latitudeEl.classList.add("card-text");

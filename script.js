@@ -8,7 +8,6 @@ var apiKey = "0e40e7fc7657400e150779275327d76e";
 
 
 
-
 function getSearchValue() {
     var searchValue = document.getElementById("search-value").value;
 
@@ -35,19 +34,20 @@ function searchWeather(searchValue) {
         cardEl.classList.add("card");
 
         var temperatureEl = document.createElement("p");
-        temperatureEl.textContent = "Temperature; " + data.main.temp + "℉";
+        temperatureEl.textContent = "Temperature: " + data.main.temp + "℉";
         temperatureEl.classList.add("card-text");
 
         var humidityEl = document.createElement("p");
-        humidityEl.textContent = "Humidity; " + data.main.humidity + "%";
+        humidityEl.textContent = "Humidity: " + data.main.humidity + "%";
         humidityEl.classList.add("card-text");
 
         var windEl = document.createElement("p");
-        windEl.textContent = "Wind; " + data.wind.speed + "mph";
+        windEl.textContent = "Wind: " + data.wind.speed + "mph";
         windEl.classList.add("card-text");
 
         var cardBodyEl = document.createElement("div");
         cardBodyEl.classList.add("card-body");
+
 
         var imageEl = document.createElement("img");
         imageEl.setAttribute("src", " http://openweathermap.org/img/wn/" + data.weather[0].icon + ".png");
@@ -61,6 +61,7 @@ function searchWeather(searchValue) {
         cardBodyEl.appendChild(humidityEl);
 
         cardBodyEl.appendChild(windEl);
+
         
         cardEl.appendChild(cardBodyEl);
 

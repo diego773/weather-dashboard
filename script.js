@@ -86,7 +86,6 @@ function searchWeather(searchValue) {
           uvIndexEl.textContent = "UV Index : " + uviResponse.value;
           uvIndexEl.classList.add("card-text");
 
-          var i = 4;
           // Call for 5 day forecast using different api
           fetch(
             "http://api.openweathermap.org/data/2.5/forecast?q=" +
@@ -101,36 +100,42 @@ function searchWeather(searchValue) {
             .then(function (forecastResponse) {
               console.log(forecastResponse.list);
 
-              var forecastEl = document.getElementById("forecast");
-              forecastEl.textContent = "";
-
-              var titleEl = document.createElement("h3");
-              titleEl.classList.add("card-title");
-              titleEl.textContent =
-                data.name + " (" + new Date().toLocaleDateString() + ")";
-
-              var temperatureEl = document.createElement("p");
-              temperatureEl.textContent =
-                "Temperature: " + data.main.temp + "℉";
-              temperatureEl.classList.add("card-text");
-
-              var humidityEl = document.createElement("p");
-              humidityEl.textContent = "Humidity: " + data.main.humidity + "%";
-              humidityEl.classList.add("card-text");
-
               const list = forecastResponse.list;
               const listOnDom = document.getElementById("forecast");
               // only get 5 items
-              for (let i = 5; i < list.length; i += 8) {
+              for (let i = 1; i < list.length; i += 8) {
                 let day = list[i];
                 console.log(day);
-                if (day < 0) {
-                  forecastResponse = "Temperature: ";
+                if (day < 1) {
+                  forecastResponse = "Temp: ";
                 } else if (day < 24) {
-                  forecastResponse = "Temperature: ";
+                  forecastResponse = "Temp: ";
                 } else {
-                  forecastResponse = "Temperature: ";
+                  forecastResponse = "Temp: ";
                 }
+                // Getting data from the console and defining the variables
+                var temperatureEl = document.createElement("p");
+                temperatureEl.textContent =
+                  "Temperature: " + data.main.temp + "℉";
+                temperatureEl.classList.add("card-text");
+
+                var humidityEl = document.createElement("p");
+                humidityEl.textContent =
+                  "Humidity: " + data.main.humidity + "%";
+                humidityEl.classList.add("card-text");
+
+                var cardBodyEl = document.createElement("div");
+                cardBodyEl.classList.add("card-body");
+
+                // Shows img of the weather on that day
+                var imageEl = document.createElement("img");
+                imageEl.setAttribute(
+                  "src",
+                  " http://openweathermap.org/img/wn/" +
+                    data.weather[0].icon +
+                    ".png"
+                );
+
                 const span = document.createElement("span");
                 span.innerText = "Temp: " + day.main.temp;
                 listOnDom.appendChild(span);

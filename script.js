@@ -6,7 +6,7 @@ function getSearchValue() {
   var searchValue = document.getElementById("search-value").value;
 
   searchWeather(searchValue);
-  // searchFiveDays(searchfiveDaysValue);
+  // searchFiveDays(searchFiveDaysValue);
 }
 
 // Creating a function were it shows the result in temperature from that city
@@ -25,7 +25,7 @@ function searchWeather(searchValue) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
+      // console.log(data);
       var todayEl = document.getElementById("today");
       todayEl.textContent = "";
 
@@ -79,7 +79,7 @@ function searchWeather(searchValue) {
           return response.json();
         })
         .then(function (uviResponse) {
-          console.log(uviResponse);
+          // console.log(uviResponse);
 
           // Creating a var for UV Index in order to show the result
           var uvIndexEl = document.createElement("p");
@@ -98,10 +98,30 @@ function searchWeather(searchValue) {
               return response.json();
             })
             .then(function (forecastResponse) {
-              console.log(forecastResponse);
+              console.log(forecastResponse.list);
 
-              // Creating a var for UV Index in order to show the result
-              var forecastEl = document.createElement("h4");
+              const list = forecastResponse.list;
+              const listOnDom = document.getElementById("forecast");
+              // only get 5 items
+              for (let i = 0; i < list.length; i++) {
+                let day = list[i];
+                console.log(day);
+                if (day < 1) {
+                  forecastResponse = "Temp is ";
+                } else if (day < 24) {
+                  forecastResponse = "Temp is ";
+                } else {
+                  forecastResponse = "Temp is ";
+                }
+
+                const span = document.createElement("span");
+                span.innerText = "Temp is " + day.main.temp;
+
+                listOnDom.appendChild(span);
+              }
+
+              // Creating a var forecast in order to show the result
+              var forecastEl = document.createElement("p");
               forecastEl.classList.add("card-text");
 
               // Append the variables

@@ -102,27 +102,28 @@ function searchWeather(searchValue) {
 
               const list = forecastResponse.list;
               const listOnDom = document.getElementById("forecast");
-              // only get 5 items
+
+              // only get 5 elements
+              var titleEl = document.createElement("h3");
+              titleEl.classList.add("card-title");
+              titleEl.textContent =
+                data.name + " (" + new Date().toLocaleDateString() + ")";
+
               for (let i = 1; i < list.length; i += 8) {
                 let day = list[i];
                 console.log(day);
                 if (day < 1) {
-                  forecastResponse = "Temp: ";
+                  forecastResponse = "Temp";
                 } else if (day < 24) {
-                  forecastResponse = "Temp: ";
+                  forecastResponse = "Temp";
                 } else {
-                  forecastResponse = "Temp: ";
+                  forecastResponse = "Temp";
                 }
                 // Getting data from the console and defining the variables
                 var temperatureEl = document.createElement("p");
                 temperatureEl.textContent =
-                  "Temperature: " + data.main.temp + "℉";
+                  "Temperature: " + day.main.temp + "℉";
                 temperatureEl.classList.add("card-text");
-
-                var humidityEl = document.createElement("p");
-                humidityEl.textContent =
-                  "Humidity: " + data.main.humidity + "%";
-                humidityEl.classList.add("card-text");
 
                 var cardBodyEl = document.createElement("div");
                 cardBodyEl.classList.add("card-body");
@@ -137,8 +138,25 @@ function searchWeather(searchValue) {
                 );
 
                 const span = document.createElement("span");
-                span.innerText = "Temp: " + day.main.temp;
+                span.innerText = "Temperature: " + day.main.temp + "℉";
                 listOnDom.appendChild(span);
+
+                // Getting data from the console and defining the variables
+                var humidityEl = document.createElement("p");
+                humidityEl.textContent = "Humidity: " + day.main.humidity + "%";
+                humidityEl.classList.add("card-text");
+
+                var cardBodyEl = document.createElement("div");
+                cardBodyEl.classList.add("card-body");
+
+                // Shows img of the weather on that day
+                var imageEl = document.createElement("img");
+                imageEl.setAttribute(
+                  "src",
+                  " http://openweathermap.org/img/wn/" +
+                    data.weather[0].icon +
+                    ".png"
+                );
               }
 
               // Creating a var forecast in order to show the result

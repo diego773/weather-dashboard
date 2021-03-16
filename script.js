@@ -98,17 +98,18 @@ function searchWeather(searchValue) {
               return response.json();
             })
             .then(function (forecastResponse) {
-              console.log(forecastResponse.list);
+              // console.log(forecastResponse.list);
 
               const list = forecastResponse.list;
               const listOnDom = document.getElementById("forecast");
 
-              // only get 5 elements
-              var titleEl = document.createElement("h3");
+              // Individual dates
+              var titleEl = document.createElement("h4");
               titleEl.classList.add("card-title");
               titleEl.textContent =
                 data.name + " (" + new Date().toLocaleDateString() + ")";
 
+              // Getting 5
               for (let i = 1; i < list.length; i += 8) {
                 let day = list[i];
                 console.log(day);
@@ -119,6 +120,7 @@ function searchWeather(searchValue) {
                 } else {
                   forecastResponse = "Temp";
                 }
+
                 // Getting data from the console and defining the variables
                 var temperatureEl = document.createElement("p");
                 temperatureEl.textContent =
@@ -127,6 +129,10 @@ function searchWeather(searchValue) {
 
                 var cardBodyEl = document.createElement("div");
                 cardBodyEl.classList.add("card-body");
+
+                var dateEl = document.createElement("p");
+                dateEl.textContent = day.dt_txt;
+                dateEl.classList.add("card-text");
 
                 // Shows img of the weather on that day
                 var imageEl = document.createElement("img");
@@ -137,6 +143,7 @@ function searchWeather(searchValue) {
                     ".png"
                 );
 
+                // Show farhenheit temperature for each day
                 const span = document.createElement("span");
                 span.innerText = "Temperature: " + day.main.temp + "℉";
                 listOnDom.appendChild(span);
